@@ -14,9 +14,8 @@ Firmware_Diy_Core() {
 	Checkout_Virtual_Images=true
 	Firmware_Format=AUTO
 	REGEX_Skip_Checkout="packages|buildinfo|sha256sums|manifest|kernel|rootfs|factory"
-
+	
 	INCLUDE_AutoBuild_Features=true
-	INCLUDE_DRM_I915=true
 	INCLUDE_Original_OpenWrt_Compatible=false
 }
 
@@ -54,14 +53,20 @@ Firmware_Diy() {
 		AddPackage svn other luci-app-eqos kenzok8/openwrt-packages/trunk
 		AddPackage git other OpenClash vernesong master
 		AddPackage git other luci-app-usb3disable rufengsuixing master
+		AddPackage git other luci-app-ikoolproxy iwrt main
+        #mine
 		AddPackage git other luci-app-dockerman lisaac master
 		AddPackage git other luci-theme-atmaterial-ColorIcon esirplayground master
 		AddPackage git other luci-app-vssr jerrykuku master
 		AddPackage git other lua-maxminddb jerrykuku master
+		
 		# AddPackage git other xPackages xinb main
 		# AddPackage git other OpenAppFilter destan19 master
 		# AddPackage svn other luci-app-ddnsto linkease/nas-packages/trunk/luci
 		# AddPackage svn other ddnsto linkease/nas-packages/trunk/network/services
+		patch < ${CustomFiles}/Patches/revert_remove-alterId-config.patch -p1 -d ${Home}
+		patch < ${CustomFiles}/Patches/fix_ntfs3_antfs_conflict.patch -p1 -d ${Home}
+		patch < ${CustomFiles}/Patches/fix_aria2_autocreate_path.patch -p1 -d ${Home}
 
 		case "${TARGET_PROFILE}" in
 		d-team_newifi-d2)
