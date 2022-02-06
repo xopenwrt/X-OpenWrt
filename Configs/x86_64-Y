@@ -1,3 +1,5 @@
+# 挂载WebDav
+CONFIG_PACKAGE_davfs2=y
 # Smart DNS
 CONFIG_PACKAGE_smartdns=y
 CONFIG_PACKAGE_luci-app-smartdns=y

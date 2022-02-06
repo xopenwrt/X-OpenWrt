@@ -40,8 +40,8 @@ Firmware_Diy() {
 	# ${FEEDS_PKG}			OpenWrt 源码目录下的 package/feeds/packages 目录
 	# ${BASE_FILES}			OpenWrt 源码目录下的 package/base-files/files 目录
 
-# 移除lean的netdata  lede/package/lean
-    rm ${Home}/package/lean/luci-app-netdata -rf
+# 取消移除lean的netdata  lede/package/lean
+#    rm ${Home}/package/lean/luci-app-netdata -rf
 	case "${OP_AUTHOR}/${OP_REPO}:${OP_BRANCH}" in
 	coolsnowwolf/lede:master)
 		sed -i "s?/bin/login?/usr/libexec/login.sh?g" ${FEEDS_PKG}/ttyd/files/ttyd.config
