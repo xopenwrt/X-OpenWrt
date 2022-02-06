@@ -2,7 +2,7 @@
 - 可在 [Release](https://github.com/xopenwrt/X-OpenWrt/releases/tag/AutoUpdate) 页面下载 `img.gz` 格式的文件
 - 可在 [Cloud-Openwrt](https://openwrt.115115.xyz/)下载    `VMDK` 虚拟磁盘文件
 - 可直接使用系统内置的更新功能，可任意切换版本
-
+- 文档参见： [帮助文档](https://openwrt.115115.xyz/doc)
 ## **发行说明**
 1. Github 项目地址：[AutoBuild-Action](https://github.com/xopenwrt/X-OpenWrt)
 2. 默认IP：`192.168.2.200`，用户名： `root` 密码：`password`
@@ -31,6 +31,8 @@
 - 20211224：修复 `NetData` 显示错误
 - 20211225：修复 `NetData` 显示错误
 - 20211230：`2021` 年的最后一版，全部采用 `5.10` 内核。更新至R22.1.1
-- 20220101: `2022` 新年快乐！
-- 20220205: `牛辞胜岁 虎跃新程` 经过一些挫折，继续更新。优化显示，更新组件！
+- 20220101：`2022` 新年快乐！
+- 20220205：`牛辞胜岁 虎跃新程` 经过一些挫折，继续更新。优化显示，更新组件！无 `netdata`！`kernel 5.10.96`
+- 20220206：`牛辞胜岁 虎跃新程` 经过一些挫折，继续更新。优化显示，更新组件！无 `netdata`！`kernel 5.10.96`
+- 20220207：添加虚拟内存设置，增加 `WebDav` . 版本更新保留 `known_hosts` , `htop` 配置, 修复一些显示错误, 将 netdate 设置为默认版本
 
