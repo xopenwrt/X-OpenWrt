@@ -76,6 +76,7 @@ Firmware_Diy() {
 		;;
 		x86_64)
 			AddPackage git other openwrt-passwall xiaorouji packages
+			AddPackage git other openwrt-packages kenzok8 master
 			rm -rf packages/lean/autocore
 			AddPackage git lean autocore-modify Hyy2001X master
 		;;
