@@ -157,6 +157,7 @@ jobs:
         cd openwrt
         ./scripts/feeds update -a
         ./scripts/feeds install -a
+        ./scripts/feeds uninstall luci-theme-argon
         sed -i 's/^\s*$[(]call\sEnsureVendoredVersion/#&/' $GITHUB_WORKSPACE/openwrt/feeds/packages/utils/dockerd/Makefile
 #fix dockerd bug
 
