@@ -79,6 +79,7 @@ Firmware_Diy() {
 			AddPackage git other openwrt-packages kenzok8 master
 			rm -rf packages/lean/autocore
 			AddPackage git lean autocore-modify Hyy2001X master
+		;;
 		armvirt_64)
 			AddPackage git other openwrt-packages kenzok8 master
 			rm -rf packages/lean/autocore
