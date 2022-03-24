@@ -211,40 +211,12 @@ jobs:
       if: env.UPLOAD_RELEASES == 'true' && env.Result == 'true' && !cancelled()
       run: |
         wget https://api.github.com/repos/${{github.repository}}/releases/tags/AutoUpdate -O API
-        SP_UEFI_IMG_GZ=openwrt/bin/Firmware/AutoBuild-*-UEFI-*.img.gz
+        SP_UEFI_IMG_GZ=openwrt/bin/Firmware/AutoBuild-*.img.gz
         SP_UEFI_IMG_GZ=$(echo $SP_UEFI_IMG_GZ)
         SP_UEFI_IMG_GZ=${SP_UEFI_IMG_GZ##*/}
-        SP_UEFI_VMDK=openwrt/bin/Firmware/AutoBuild-*-UEFI-*.vmdk
-        SP_UEFI_VMDK=$(echo $SP_UEFI_VMDK)
-        SP_UEFI_VMDK=${SP_UEFI_VMDK##*/}
-        SP_UEFI_VDI=openwrt/bin/Firmware/AutoBuild-*-UEFI-*.vdi
-        SP_UEFI_VDI=$(echo $SP_UEFI_VDI)
-        SP_UEFI_VDI=${SP_UEFI_VDI##*/}
-        SP_UEFI_VHDX=openwrt/bin/Firmware/AutoBuild-*-UEFI-*.vhdx
-        SP_UEFI_VHDX=$(echo $SP_UEFI_VHDX)
-        SP_UEFI_VHDX=${SP_UEFI_VHDX##*/}
-        SP_LEGACY_IMG_GZ=openwrt/bin/Firmware/AutoBuild-*-BIOS-*.img.gz
-        SP_LEGACY_IMG_GZ=$(echo $SP_LEGACY_IMG_GZ)
-        SP_LEGACY_IMG_GZ=${SP_LEGACY_IMG_GZ##*/}
-        SP_LEGACY_VMDK=openwrt/bin/Firmware/AutoBuild-*-BIOS-*.vmdk
-        SP_LEGACY_VMDK=$(echo $SP_LEGACY_VMDK)
-        SP_LEGACY_VMDK=${SP_LEGACY_VMDK##*/}
-        SP_LEGACY_VDI=openwrt/bin/Firmware/AutoBuild-*-BIOS-*.vdi
-        SP_LEGACY_VDI=$(echo $SP_LEGACY_VDI)
-        SP_LEGACY_VDI=${SP_LEGACY_VDI##*/}
-        SP_LEGACY_VHDX=openwrt/bin/Firmware/AutoBuild-*-BIOS-*.vhdx
-        SP_LEGACY_VHDX=$(echo $SP_LEGACY_VHDX)
-        SP_LEGACY_VHDX=${SP_LEGACY_VHDX##*/}
         echo SP_UEFI_IMG_GZ=$(echo $SP_UEFI_IMG_GZ) >> $GITHUB_ENV
-        echo SP_UEFI_VMDK=$(echo $SP_UEFI_VMDK) >> $GITHUB_ENV
-        echo SP_UEFI_VDI=$(echo $SP_UEFI_VDI) >> $GITHUB_ENV
-        echo SP_UEFI_VHDX=$(echo $SP_UEFI_VHDX) >> $GITHUB_ENV
-        echo SP_LEGACY_IMG_GZ=$(echo $SP_LEGACY_IMG_GZ) >> $GITHUB_ENV
-        echo SP_LEGACY_VMDK=$(echo $SP_LEGACY_VMDK) >> $GITHUB_ENV
-        echo SP_LEGACY_VDI=$(echo $SP_LEGACY_VDI) >> $GITHUB_ENV
-        echo SP_LEGACY_VHDX=$(echo $SP_LEGACY_VHDX) >> $GITHUB_ENV
 
-    - name: 1 Upload SP_UEFI_IMG_GZ to SharePoint
+    - name: Upload SP_IMG_GZ to SharePoint
       uses: su-dont/share-point-uploader@v2.1
       if: env.SharePoint=='true' && !cancelled() && env.Result == 'true'
       with:
@@ -255,18 +227,7 @@ jobs:
         sp_file_name: ${{ env.SP_UEFI_IMG_GZ }}
         file: openwrt/bin/Firmware/${{ env.SP_UEFI_IMG_GZ }}
 
-    - name: 2 Upload SP_UEFI_VMDK to SharePoint
-      uses: su-dont/share-point-uploader@v2.1
-      if: env.SharePoint=='true' && !cancelled() && env.Result == 'true'
-      with:
-        sp_url: https://xinbao.sharepoint.com/:f:/r/sites/OpenWrt
-        sp_username: ${{ secrets.USERNAME }}
-        sp_password: ${{ secrets.PASSWORD }}
-        sp_folder: /Shared Documents/OpenWrt/${{ steps.date.outputs.date }}
-        sp_file_name: ${{ env.SP_UEFI_VMDK }}
-        file: openwrt/bin/Firmware/${{ env.SP_UEFI_VMDK }}
-
-    # - name: 3 Upload SP_UEFI_VDI to SharePoint
+    # - name: 2 Upload SP_UEFI_VMDK to SharePoint
     #   uses: su-dont/share-point-uploader@v2.1
     #   if: env.SharePoint=='true' && !cancelled() && env.Result == 'true'
     #   with:
@@ -274,10 +235,32 @@ jobs:
     #     sp_username: ${{ secrets.USERNAME }}
     #     sp_password: ${{ secrets.PASSWORD }}
     #     sp_folder: /Shared Documents/OpenWrt/${{ steps.date.outputs.date }}
-    #     sp_file_name: ${{ env.SP_UEFI_VDI }}
-    #     file: openwrt/bin/Firmware/${{ env.SP_UEFI_VDI }}
+    #     sp_file_name: ${{ env.SP_UEFI_VMDK }}
+    #     file: openwrt/bin/Firmware/${{ env.SP_UEFI_VMDK }}
 
-    # - name: 4 Upload SP_UEFI_VHDX to SharePoint
+    # # - name: 3 Upload SP_UEFI_VDI to SharePoint
+    # #   uses: su-dont/share-point-uploader@v2.1
+    # #   if: env.SharePoint=='true' && !cancelled() && env.Result == 'true'
+    # #   with:
+    # #     sp_url: https://xinbao.sharepoint.com/:f:/r/sites/OpenWrt
+    # #     sp_username: ${{ secrets.USERNAME }}
+    # #     sp_password: ${{ secrets.PASSWORD }}
+    # #     sp_folder: /Shared Documents/OpenWrt/${{ steps.date.outputs.date }}
+    # #     sp_file_name: ${{ env.SP_UEFI_VDI }}
+    # #     file: openwrt/bin/Firmware/${{ env.SP_UEFI_VDI }}
+
+    # # - name: 4 Upload SP_UEFI_VHDX to SharePoint
+    # #   uses: su-dont/share-point-uploader@v2.1
+    # #   if: env.SharePoint=='true' && !cancelled() && env.Result == 'true'
+    # #   with:
+    # #     sp_url: https://xinbao.sharepoint.com/:f:/r/sites/OpenWrt
+    # #     sp_username: ${{ secrets.USERNAME }}
+    # #     sp_password: ${{ secrets.PASSWORD }}
+    # #     sp_folder: /Shared Documents/OpenWrt/${{ steps.date.outputs.date }}
+    # #     sp_file_name: ${{ env.SP_UEFI_VHDX }}
+    # #     file: openwrt/bin/Firmware/${{ env.SP_UEFI_VHDX }}
+
+    # - name: 5 Upload SP_LEGACY_IMG_GZ to SharePoint
     #   uses: su-dont/share-point-uploader@v2.1
     #   if: env.SharePoint=='true' && !cancelled() && env.Result == 'true'
     #   with:
@@ -285,32 +268,10 @@ jobs:
     #     sp_username: ${{ secrets.USERNAME }}
     #     sp_password: ${{ secrets.PASSWORD }}
     #     sp_folder: /Shared Documents/OpenWrt/${{ steps.date.outputs.date }}
-    #     sp_file_name: ${{ env.SP_UEFI_VHDX }}
-    #     file: openwrt/bin/Firmware/${{ env.SP_UEFI_VHDX }}
+    #     sp_file_name: ${{ env.SP_LEGACY_IMG_GZ }}
+    #     file: openwrt/bin/Firmware/${{ env.SP_LEGACY_IMG_GZ }}
 
-    - name: 5 Upload SP_LEGACY_IMG_GZ to SharePoint
-      uses: su-dont/share-point-uploader@v2.1
-      if: env.SharePoint=='true' && !cancelled() && env.Result == 'true'
-      with:
-        sp_url: https://xinbao.sharepoint.com/:f:/r/sites/OpenWrt
-        sp_username: ${{ secrets.USERNAME }}
-        sp_password: ${{ secrets.PASSWORD }}
-        sp_folder: /Shared Documents/OpenWrt/${{ steps.date.outputs.date }}
-        sp_file_name: ${{ env.SP_LEGACY_IMG_GZ }}
-        file: openwrt/bin/Firmware/${{ env.SP_LEGACY_IMG_GZ }}
-
-    - name: 6 Upload SP_LEGACY_VMDK to SharePoint
-      uses: su-dont/share-point-uploader@v2.1
-      if: env.SharePoint=='true' && !cancelled() && env.Result == 'true'
-      with:
-        sp_url: https://xinbao.sharepoint.com/:f:/r/sites/OpenWrt
-        sp_username: ${{ secrets.USERNAME }}
-        sp_password: ${{ secrets.PASSWORD }}
-        sp_folder: /Shared Documents/OpenWrt/${{ steps.date.outputs.date }}
-        sp_file_name: ${{ env.SP_LEGACY_VMDK }}
-        file: openwrt/bin/Firmware/${{ env.SP_LEGACY_VMDK }}
-
-    # - name: 7 Upload SP_LEGACY_VDI to SharePoint
+    # - name: 6 Upload SP_LEGACY_VMDK to SharePoint
     #   uses: su-dont/share-point-uploader@v2.1
     #   if: env.SharePoint=='true' && !cancelled() && env.Result == 'true'
     #   with:
@@ -318,24 +279,35 @@ jobs:
     #     sp_username: ${{ secrets.USERNAME }}
     #     sp_password: ${{ secrets.PASSWORD }}
     #     sp_folder: /Shared Documents/OpenWrt/${{ steps.date.outputs.date }}
-    #     sp_file_name: ${{ env.SP_LEGACY_VDI }}
-    #     file: openwrt/bin/Firmware/${{ env.SP_LEGACY_VDI }}
+    #     sp_file_name: ${{ env.SP_LEGACY_VMDK }}
+    #     file: openwrt/bin/Firmware/${{ env.SP_LEGACY_VMDK }}
 
-    # - name: 8 Upload SP_LEGACY_VHDX to SharePoint
-    #   uses: su-dont/share-point-uploader@v2.1
-    #   if: env.SharePoint=='true' && !cancelled() && env.Result == 'true'
-    #   with:
-    #     sp_url: https://xinbao.sharepoint.com/:f:/r/sites/OpenWrt
-    #     sp_username: ${{ secrets.USERNAME }}
-    #     sp_password: ${{ secrets.PASSWORD }}
-    #     sp_folder: /Shared Documents/OpenWrt/${{ steps.date.outputs.date }}
-    #     sp_file_name: ${{ env.SP_LEGACY_VHDX }}
-    #     file: openwrt/bin/Firmware/${{ env.SP_LEGACY_VHDX }}
+    # # - name: 7 Upload SP_LEGACY_VDI to SharePoint
+    # #   uses: su-dont/share-point-uploader@v2.1
+    # #   if: env.SharePoint=='true' && !cancelled() && env.Result == 'true'
+    # #   with:
+    # #     sp_url: https://xinbao.sharepoint.com/:f:/r/sites/OpenWrt
+    # #     sp_username: ${{ secrets.USERNAME }}
+    # #     sp_password: ${{ secrets.PASSWORD }}
+    # #     sp_folder: /Shared Documents/OpenWrt/${{ steps.date.outputs.date }}
+    # #     sp_file_name: ${{ env.SP_LEGACY_VDI }}
+    # #     file: openwrt/bin/Firmware/${{ env.SP_LEGACY_VDI }}
 
-    - name: Delete VM Disk File
+    # # - name: 8 Upload SP_LEGACY_VHDX to SharePoint
+    # #   uses: su-dont/share-point-uploader@v2.1
+    # #   if: env.SharePoint=='true' && !cancelled() && env.Result == 'true'
+    # #   with:
+    # #     sp_url: https://xinbao.sharepoint.com/:f:/r/sites/OpenWrt
+    # #     sp_username: ${{ secrets.USERNAME }}
+    # #     sp_password: ${{ secrets.PASSWORD }}
+    # #     sp_folder: /Shared Documents/OpenWrt/${{ steps.date.outputs.date }}
+    # #     sp_file_name: ${{ env.SP_LEGACY_VHDX }}
+    # #     file: openwrt/bin/Firmware/${{ env.SP_LEGACY_VHDX }}
+
+    - name: Delete tar.gz File
       if: env.Release=='true' && env.UPLOAD_RELEASES == 'true' && env.Result == 'true' && !cancelled()
       run: |
-        rm openwrt/bin/Firmware/AutoBuild-*.v* -rf
+        rm openwrt/bin/Firmware/AutoBuild-*.tar.gz -rf
 
     - name: Upload Firmware to Github Release
       uses: svenstaro/upload-release-action@v2
