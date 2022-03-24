@@ -48,6 +48,12 @@ Firmware_Diy_Before() {
 	}
 	[[ -z ${TARGET_PROFILE} ]] && ECHO "Unable to get [TARGET_PROFILE] !"
 	TARGET_BOARD="$(awk -F '[="]+' '/TARGET_BOARD/{print $2}' ${CONFIG_TEMP})"
+# N1盒子
+	case "${TARGET_BOARD}" in
+		armvirt)
+		TARGET_PROFILE="$(egrep -o "CONFIG_TARGET.*Default=y" ${CONFIG_TEMP} | sed -r 's/.*TARGET_(.*)_Default=y/\1/')"
+    esac
+# N1盒子
 	TARGET_SUBTARGET="$(awk -F '[="]+' '/TARGET_SUBTARGET/{print $2}' ${CONFIG_TEMP})"
 	[[ -z ${Firmware_Format} || ${Firmware_Format} =~ (false|AUTO) ]] && {
 		case "${TARGET_BOARD}" in
@@ -67,6 +73,8 @@ Firmware_Diy_Before() {
 		octeon | oxnas | pistachio)
 			Firmware_Format=tar
 		;;
+		armvirt)
+			Firmware_Format=$(if_IMG)
 		esac
 	}
 	[[ ${Author_URL} != false && ${Author_URL} == AUTO ]] && Author_URL=${Github}
