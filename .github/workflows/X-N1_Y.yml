@@ -188,7 +188,7 @@ jobs:
 
     - name: Process Packages to IMG
       uses: xopenwrt/amlogic-s9xxx-openwrt@main
-      if: !cancelled() && env.Result == 'true'
+      if: env.Result == 'true'
       with:
         amlogic_openwrt: s905d
 
