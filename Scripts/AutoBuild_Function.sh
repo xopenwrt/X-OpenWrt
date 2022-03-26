@@ -328,7 +328,7 @@ Firmware_Diy_End() {
 	cd ${Firmware_Path}
 	echo -e "### FIRMWARE OUTPUT ###\n$(ls -1 | egrep -v "packages|buildinfo|sha256sums|manifest")\n"
 	case "${TARGET_BOARD}" in
-	x86)
+	x86 | armvirt)
 		[[ ${Checkout_Virtual_Images} == true ]] && {
 			Process_Firmware $(List_Format)
 		} || {
