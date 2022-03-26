@@ -186,6 +186,12 @@ jobs:
         make -j$(nproc) || make -j1 V=s
         [ $? == 0 ] && echo "Result=true" >> $GITHUB_ENV || echo "Result=false" >> $GITHUB_ENV
 
+    - name: Process Packages to IMG
+      uses: xopenwrt/amlogic-s9xxx-openwrt@main
+      if: !cancelled() && env.Result == 'true'
+      with:
+        amlogic_openwrt: s905d
+
     - name: Process Firmware
       if: env.Result == 'true' && !cancelled()
       run: |
