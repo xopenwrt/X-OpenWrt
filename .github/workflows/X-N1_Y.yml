@@ -200,10 +200,10 @@ jobs:
         [ -e ${Home}/bin/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}/openwrt-armvirt-64-default-rootfs.tar.gz ] && sudo rm ${Home}/bin/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}/openwrt-armvirt-64-default-rootfs.tar.gz
         [ -e ${Home}/bin/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}/sha256sums ] && sudo rm ${Home}/bin/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}/sha256sums
         cd ${Home}/bin/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}
-        echo $(sha256sum openwrt_s905d*) >> sha256sums
-        cd ${Home}
-        source $GITHUB_WORKSPACE/Scripts/AutoBuild_Function.sh
-        Firmware_Diy_End
+        Firmware=${AutoBuild_Firmware}
+        Firmware=${Firmware/SHA256/$(sha256sum openwrt_s905d*.img.gz | grep "$1" | cut -c1-5)}
+        Firmware=${Firmware/FORMAT/img.gz}
+        cp openwrt_s905d* ${Firmware}
 
     - name: Upload Firmware to Artifacts
       uses: actions/upload-artifact@main

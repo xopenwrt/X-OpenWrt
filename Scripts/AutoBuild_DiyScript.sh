@@ -59,7 +59,7 @@ Firmware_Diy() {
 		AddPackage git other luci-theme-atmaterial-ColorIcon esirplayground master
 		AddPackage git other luci-app-vssr jerrykuku master
 		AddPackage git other lua-maxminddb jerrykuku master
-		
+		AddPackage git other luci-theme-neobird thinktip main
 		# AddPackage git other xPackages xinb main
 		# AddPackage git other OpenAppFilter destan19 master
 		# AddPackage svn other luci-app-ddnsto linkease/nas-packages/trunk/luci
