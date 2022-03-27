@@ -191,11 +191,13 @@ jobs:
       if: env.Result == 'true'
       with:
         amlogic_openwrt: s905d
+        amlogic_kernel: 5.15.25
 
     - name: Process Firmware
       if: env.Result == 'true' && !cancelled()
       run: |
         cd openwrt
+        [ -e ${Home}/bin/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}/openwrt-armvirt-64-default-rootfs.tar.gz ] && sudo rm ${Home}/bin/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}/openwrt-armvirt-64-default-rootfs.tar.gz
         source $GITHUB_WORKSPACE/Scripts/AutoBuild_Function.sh
         Firmware_Diy_End
 
