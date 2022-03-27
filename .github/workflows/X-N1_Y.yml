@@ -199,7 +199,9 @@ jobs:
         cd openwrt
         [ -e ${Home}/bin/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}/openwrt-armvirt-64-default-rootfs.tar.gz ] && sudo rm ${Home}/bin/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}/openwrt-armvirt-64-default-rootfs.tar.gz
         [ -e ${Home}/bin/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}/sha256sums ] && sudo rm ${Home}/bin/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}/sha256sums
-        echo $(sha256sum ${Home}/bin/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}/openwrt_s905d*) >> ${Home}/bin/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}/sha256sums
+        cd ${Home}/bin/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}
+        echo $(sha256sum openwrt_s905d*) >> sha256sums
+        cd ${Home}
         source $GITHUB_WORKSPACE/Scripts/AutoBuild_Function.sh
         Firmware_Diy_End
 
