@@ -5,13 +5,13 @@
 
 ## **发行说明**
 1. Github 项目地址：[AutoBuild-Action](https://github.com/xopenwrt/X-OpenWrt)
-2. 默认IP：`192.168.2.200`，用户名： `root` 密码：`password`
+2. 默认IP：`192.168.2.200`，用户名： `root` 密码：`password`, `N1` 盒子为 `10.0.0.1`
 3. `X` 版本（大全版）： `Dockerman Smartdns HelloWorld Clash Passwall AdGuardHome` 等以及更多主题
-4. `Y` 版本（适中版）： 基础包、常用软件及 `Docker`
+4. `Y` 版本（适中版）： 基础包、常用软件及 `Docker`, 其中 `N1` 盒子版本软件包还在调整中
 6. `Z` 版本（极简版) ： 基础包及 `Smartdns Passwall AdGuardHome`
 7. 可修复 `Docker` 对 `udp` 的影响
-8. 默认 `rom` 分区大小为 `800M`，`Boot` 分区为`32M`。如果自行对路由器分区后请勿随意不同的发行版本，注意确认 `rom` 分区和 `Boot` 分区一致，否则会导致丢失硬盘其余分区数据。同一发行版本请放心更新、升级
-9. 本项目采用 `5.10` 内核, `2021.12.30`前 `X` `Y` 版本使用 `5.10` 内核，  `Z` 版本使用 `5.4` 内核。
+8. `x86` 默认 `rom` 分区大小为 `800M`，`Boot` 分区为`32M`。如果自行对路由器分区后请勿随意不同的发行版本，注意确认 `rom` 分区和 `Boot` 分区一致，否则会导致丢失硬盘其余分区数据。同一发行版本请放心更新、升级
+9. 本项目最新版本全部采用 `5.15` 内核，详情参见更新日志
 10. 本镜像基于 ：[AutoBuild-Action](https://github.com/Hyy2001X/AutoBuild-Actions) 项目，特别感谢!
 11. 代码调试仓库为：[AutoBuild-Action](https://github.com/kokeri/AutoBuild-Actions/)
 
