@@ -205,6 +205,7 @@ jobs:
         Firmware=${Firmware/SHA256/$(sha256sum openwrt_s905d*.img.gz | grep "$1" | cut -c1-5)}
         Firmware=${Firmware/FORMAT/img.gz}
         echo Firmware=$Firmware
+        mkdir -p ${Home}/bin/Firmware/${Firmware}
         cp openwrt_s905d* ${Home}/bin/Firmware/${Firmware}
         ls
 
