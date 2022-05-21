@@ -142,7 +142,6 @@ jobs:
     - name: Clone Openwrt Source Code
       run: |
         git clone -b $REPO_BRANCH $REPO_URL openwrt
-#        wget https://raw.githubusercontent.com/WYC-2020/lede/master/target/linux/generic/backport-5.15/001-fix-kmod-iwlwifi-build-on-kernel-5.15.patch -O openwrt/target/linux/generic/backport-5.15/001-fix-kmod-iwlwifi-build-on-kernel-5.15.patch
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
     - name: Cache
