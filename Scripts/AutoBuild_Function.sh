@@ -346,7 +346,7 @@ Firmware_Diy_End() {
 	esac
 	[[ $(ls) =~ 'AutoBuild-' ]] && {
 		cd -
-		mv -a ${Firmware_Path}/AutoBuild-* bin/Firmware
+		cp -a ${Firmware_Path}/AutoBuild-* bin/Firmware
 	}
 	echo "[$(date "+%H:%M:%S")] Actions Avaliable: $(df -h | grep "/dev/root" | awk '{printf $4}')"
 	ECHO "[Firmware_Diy_End] Done"
@@ -377,9 +377,12 @@ Process_Firmware_Core() {
 		[[ -f $1 ]] && {
 			ECHO "Copying [$1] to [${Firmware}] ..."
 			cp -a $1 ${Firmware}
+			rm $1
+			rm 
 		} || ECHO "Unable to access [${Firmware}] ..."
 		shift
 	done
+	sudo make clean -j1 V=s
 }
 
 List_Firmware() {
