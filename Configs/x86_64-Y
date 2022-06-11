@@ -44,6 +44,8 @@ CONFIG_DOCKER_NET_MACVLAN=y
 CONFIG_DOCKER_OPTIONAL_FEATURES=y
 # Package
 CONFIG_PACKAGE_luci-app-ssr-plus=y
+# Disable Sagernet core
+CONFIG_PACKAGE_sagernet-core is not set
 CONFIG_PACKAGE_luci-app-argon-config=y
 CONFIG_PACKAGE_luci-app-netdata=y
 CONFIG_PACKAGE_luci-app-serverchan=y
