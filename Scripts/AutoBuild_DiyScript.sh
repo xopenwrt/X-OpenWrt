@@ -64,14 +64,14 @@ Firmware_Diy() {
 		# AddPackage git other OpenAppFilter destan19 master
 		# AddPackage svn other luci-app-ddnsto linkease/nas-packages/trunk/luci
 		# AddPackage svn other ddnsto linkease/nas-packages/trunk/network/services
-		
+
 		for x in $(ls -1 ${CustomFiles}/Patches/luci-app-shadowsocksr)
 		do
-			patch < ${CustomFiles}/Patches/luci-app-shadowsocksr/${x} -p1 -d ${WORK}
+			patch < ${CustomFiles}/Patches/luci-app-shadowsocksr/${x} -p1 -d ${Home}
 		done
 		
-		patch < ${CustomFiles}/Patches/fix_ntfs3_conflict_with_antfs.patch -p1 -d ${WORK}
-		patch < ${CustomFiles}/Patches/fix_aria2_auto_create_download_path.patch -p1 -d ${WORK}
+		patch < ${CustomFiles}/Patches/fix_ntfs3_conflict_with_antfs.patch -p1 -d ${Home}
+		patch < ${CustomFiles}/Patches/fix_aria2_auto_create_download_path.patch -p1 -d ${Home}
 
 		case "${TARGET_PROFILE}" in
 		d-team_newifi-d2)
@@ -85,6 +85,7 @@ Firmware_Diy() {
 			rm -rf packages/lean/autocore
 			AddPackage git lean autocore-modify Hyy2001X master
 			sed -i -- 's:/bin/ash:'/bin/bash':g' ${BASE_FILES}/etc/passwd
+			patch < ${CustomFiles}/Patches/upgrade_intel_igpu_drv.patch -p1 -d ${Home}
 		;;
 		armvirt_64)
 			AddPackage git other openwrt-passwall xiaorouji packages
