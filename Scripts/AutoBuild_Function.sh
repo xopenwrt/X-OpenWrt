@@ -212,7 +212,7 @@ EOF
 			fi
 			ECHO "Downloading [ShadowSocksR Plus+] for coolsnowwolf/lede ..."
 			AddPackage git other helloworld fw876 master
-			sed -i 's/143/143,8080,8443/' $(PKG_Finder d package luci-app-ssr-plus)/root/etc/init.d/shadowsocksr
+			#sed -i 's/143/143,8080,8443/' $(PKG_Finder d package luci-app-ssr-plus)/root/etc/init.d/shadowsocksr
 		;;
 		immortalwrt/immortalwrt)
 			Copy ${CustomFiles}/Depends/openwrt_release_${OP_AUTHOR} ${BASE_FILES}/etc openwrt_release
