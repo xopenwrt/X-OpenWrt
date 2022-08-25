@@ -1,57 +1,23 @@
-diff --git a/package/other/helloworld/luci-app-ssr-plus/luasrc/model/cbi/shadowsocksr/client.lua b/package/other/helloworld/luci-app-ssr-plus/luasrc/model/cbi/shadowsocksr/client.lua
-index 1530930..609f880 100644
---- a/package/other/helloworld/luci-app-ssr-plus/luasrc/model/cbi/shadowsocksr/client.lua
-+++ b/package/other/helloworld/luci-app-ssr-plus/luasrc/model/cbi/shadowsocksr/client.lua
-@@ -82,8 +82,14 @@ o.default = gfw
- o = s:option(ListValue, "dports", translate("Proxy Ports"))
- o:value("1", translate("All Ports"))
- o:value("2", translate("Only Common Ports"))
-+o:value("0", translate("Custom Ports"))
- o.default = 1
+diff --git a/package/other/helloworld/luci-app-ssr-plus/root/usr/bin/ssr-rules b/luci-app-ssr-plus/root/usr/bin/ssr-rules
+index 4a85173..f1ead5e 100755
+--- a/package/other/helloworld/luci-app-ssr-plus/root/usr/bin/ssr-rules
++++ b/package/other/helloworld/luci-app-ssr-plus/root/usr/bin/ssr-rules
+@@ -51,7 +51,8 @@ usage() {
  
-+o = s:option(Value, "custom_dports", translate("Custom Ports"))
-+o.description = translate("Muitiple proxy ports can saperate with ','")
-+o.default = "22,53,587,465,995,993,143,80,443,853,9418"
-+o:depends("dports", "0")
-+
- o = s:option(ListValue, "pdnsd_enable", translate("Resolve Dns Mode"))
- o:value("1", translate("Use DNS2TCP query"))
- o:value("2", translate("Use DNS2SOCKS query and cache"))
-diff --git a/package/other/helloworld/luci-app-ssr-plus/po/zh-cn/ssr-plus.po b/package/other/helloworld/luci-app-ssr-plus/po/zh-cn/ssr-plus.po
-index 9be3eb1..0cc120a 100644
---- a/package/other/helloworld/luci-app-ssr-plus/po/zh-cn/ssr-plus.po
-+++ b/package/other/helloworld/luci-app-ssr-plus/po/zh-cn/ssr-plus.po
-@@ -601,6 +601,12 @@ msgstr "所有端口（默认）"
- msgid "Only Common Ports"
- msgstr "仅常用端口（不走P2P流量到代理）"
+ loger() {
+ 	# 1.alert 2.crit 3.err 4.warn 5.notice 6.info 7.debug
+-	logger -st ssr-rules[$$] -p$1 $2
++	logger -st "ssr-rules[$$]" -p"$1" "$2"
++	echo "$(date "+%Y-%m-%d %H:%M:%S"): ssr-rules[$$] $2" >> /var/log/ssrplus.log
+ }
  
-+msgid "Custom Ports"
-+msgstr "自定义端口"
-+
-+msgid "Muitiple proxy ports can saperate with ','"
-+msgstr "多个代理端口请用 ',' 分隔（注意用英文逗号)"
-+
- msgid "Socket Connected"
- msgstr "连接测试"
- 
-diff --git a/package/other/helloworld/luci-app-ssr-plus/root/etc/init.d/shadowsocksr b/package/other/helloworld/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
-index 4c5f0a2..a3751e6 100755
---- a/package/other/helloworld/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
-+++ b/package/other/helloworld/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
-@@ -778,9 +778,14 @@ start_rules() {
- 		all) echo "-z" ;;
- 		esac
+ flush_r() {
+@@ -161,7 +162,7 @@ fw_rule() {
+ 	$IPT -A SS_SPEC_WAN_FW -d 224.0.0.0/4 -j RETURN
+ 	$IPT -A SS_SPEC_WAN_FW -d 240.0.0.0/4 -j RETURN
+ 	$IPT -A SS_SPEC_WAN_FW -p tcp $PROXY_PORTS -j REDIRECT --to-ports $local_port 2>/dev/null || {
+-		loger 3 "Can't redirect, please check the iptables."
++		loger 3 "Can't redirect $PROXY_PORTS to $local_port, please check the iptables."
+ 		exit 1
  	}
--	if [ "$(uci_get_by_type global dports 1)" == "2" ]; then
-+	case "$(uci_get_by_type global dports 1)" in
-+	0)
-+		local proxyport="-m multiport --dports $(uci_get_by_type global custom_dports)"
-+	;;
-+	2)
- 		local proxyport="-m multiport --dports 22,53,587,465,995,993,143,80,443,853,9418"
--	fi
-+	;;
-+	esac
- 	get_arg_out() {
- 		case "$(uci_get_by_type access_control router_proxy 1)" in
- 		1) echo "-o" ;;
+ 	return $?

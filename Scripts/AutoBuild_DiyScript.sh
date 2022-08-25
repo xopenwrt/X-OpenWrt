@@ -71,7 +71,7 @@ Firmware_Diy() {
 
 		for x in $(ls -1 ${CustomFiles}/Patches/luci-app-shadowsocksr)
 		do
-			patch < ${CustomFiles}/Patches/luci-app-shadowsocksr/${x} -p1 -d ${Home}
+			patch < ${CustomFiles}/Patches/luci-app-shadowsocksr/${x} --binary -p1 -d ${Home}
 		done
 		
 		patch < ${CustomFiles}/Patches/fix_ntfs3_conflict_with_antfs.patch -p1 -d ${Home}
