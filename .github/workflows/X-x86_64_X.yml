@@ -149,7 +149,7 @@ jobs:
       with:
         ccache: 'true'
         toolchain: true
-        # clean: true
+        clean: true
         prefix: ${{ github.workspace }}/openwrt
 
     - name: Feeds install
