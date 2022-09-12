@@ -58,7 +58,7 @@ env:
 
 jobs:
   Compile:
-    runs-on: home-action
+    runs-on: self-hosted
     steps:
     - name: Maximize Build Space
       uses: easimon/maximize-build-space@master
