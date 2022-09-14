@@ -52,7 +52,7 @@ Firmware_Diy() {
 		AddPackage svn other luci-app-socat Lienol/openwrt-package/trunk
 		AddPackage svn other luci-app-eqos kenzok8/openwrt-packages/trunk
 		AddPackage git other OpenClash vernesong master
-		AddPackage git other luci-app-usb3disable rufengsuixing master
+
 		AddPackage git other luci-app-ikoolproxy iwrt main
         #mine
 		AddPackage git other luci-app-dockerman lisaac master
